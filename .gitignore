@@ -1,0 +1,55 @@
+# ============================================
+# Local by WP Engine
+# ============================================
+conf/
+logs/
+
+# ============================================
+# WordPress Core
+# ============================================
+app/public/wp-admin/
+app/public/wp-includes/
+
+# WordPress root files
+app/public/*.php
+app/public/license.txt
+app/public/readme.html
+app/public/.htaccess
+
+# ============================================
+# WordPress configuration
+# ============================================
+app/public/wp-config.php
+
+# ============================================
+# Generated content
+# ============================================
+app/public/wp-content/uploads/
+app/public/wp-content/cache/
+app/public/wp-content/upgrade/
+
+# ============================================
+# Third-party plugins
+# ============================================
+app/public/wp-content/plugins/
+
+# ============================================
+# Third-party themes
+# ============================================
+app/public/wp-content/themes/*
+
+# Our custom theme will be tracked
+!app/public/wp-content/themes/andes-travel/
+
+# ============================================
+# Operating system / IDE
+# ============================================
+.DS_Store
+Thumbs.db
+.vscode/
+# Local app configuration
+app/.envrc
+
+# WordPress generated/default content
+app/public/wp-content/languages/
+app/public/wp-content/index.php
