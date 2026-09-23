@@ -46,6 +46,83 @@ get_header();
 
             </section>
 
+            <section class="featured-tours">
+
+                <div class="featured-tours__container">
+
+                    <header class="featured-tours__header">
+
+                        <div>
+
+                            <p class="featured-tours__eyebrow">
+                                Experiencias
+                            </p>
+
+                            <h2 class="featured-tours__title">
+                                Tours destacados
+                            </h2>
+
+                        </div>
+
+                        <a
+                            class="featured-tours__all"
+                            href="<?php echo esc_url(
+                                get_post_type_archive_link('tour')
+                            ); ?>"
+                        >
+                            Ver todos los tours
+                        </a>
+
+                    </header>
+
+                    <?php
+                    $featured_tours = new WP_Query(
+                        array(
+                            'post_type'      => 'tour',
+                            'post_status'    => 'publish',
+                            'posts_per_page' => 3,
+
+                            'meta_query' => array(
+                                array(
+                                    'key'     => '_andes_travel_featured',
+                                    'value'   => '1',
+                                    'compare' => '=',
+                                ),
+                            ),
+                        )
+                    );
+                    ?>
+
+                    <?php if ($featured_tours->have_posts()) : ?>
+
+                        <div class="tour-grid">
+
+                            <?php
+                            while ($featured_tours->have_posts()) :
+                                $featured_tours->the_post();
+
+                                get_template_part(
+                                    'template-parts/tour',
+                                    'card'
+                                );
+
+                            endwhile;
+                            ?>
+
+                        </div>
+
+                        <?php wp_reset_postdata(); ?>
+
+                    <?php else : ?>
+
+                        <p>No hay tours disponibles actualmente.</p>
+
+                    <?php endif; ?>
+
+                </div>
+
+            </section>
+
         <?php
         endwhile;
 
