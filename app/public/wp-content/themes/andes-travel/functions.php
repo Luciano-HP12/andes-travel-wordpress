@@ -24,4 +24,42 @@ function andes_travel_enqueue_assets() {
     );
 }
 
+/**
+ * Configuración inicial del tema.
+ */
+/**
+ * Configuración inicial del tema.
+ */
+function andes_travel_setup() {
+
+    // Permite que WordPress gestione el título de cada página.
+    add_theme_support('title-tag');
+
+    // Habilita imágenes destacadas.
+    add_theme_support('post-thumbnails');
+
+    add_theme_support(
+        'html5',
+        array(
+            'search-form',
+            'comment-form',
+            'comment-list',
+            'gallery',
+            'caption',
+            'style',
+            'script',
+        )
+    );
+
+    // Registra las ubicaciones de menús del tema.
+    register_nav_menus(
+        array(
+            'primary' => 'Menú principal',
+        )
+    );
+}
+
+add_action('after_setup_theme', 'andes_travel_setup');
+
+
 add_action('wp_enqueue_scripts', 'andes_travel_enqueue_assets');
