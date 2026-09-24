@@ -32,7 +32,9 @@ app/public/wp-content/upgrade/
 # ============================================
 # Third-party plugins
 # ============================================
-app/public/wp-content/plugins/
+app/public/wp-content/plugins/*
+!app/public/wp-content/plugins/andes-travel-core/
+!app/public/wp-content/plugins/andes-travel-core/**
 
 # ============================================
 # Third-party themes
