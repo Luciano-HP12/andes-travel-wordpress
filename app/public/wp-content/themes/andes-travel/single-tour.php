@@ -155,9 +155,17 @@ get_header();
                                 </p>
                             <?php endif; ?>
 
+                            <?php
+                            $contact_url = add_query_arg(
+                                'tour_id',
+                                get_the_ID(),
+                                home_url('/contacto/')
+                            );
+                            ?>
+
                             <a
                                 class="tour-single__button"
-                                href="<?php echo esc_url(home_url('/contacto/')); ?>"
+                                href="<?php echo esc_url($contact_url); ?>"
                             >
                                 Solicitar información
                             </a>

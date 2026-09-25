@@ -95,6 +95,187 @@ function andes_travel_core_register_destination_taxonomy() {
     );
 
     /**
+ * Registra el Custom Post Type Consulta.
+ */
+function andes_travel_core_register_inquiry_post_type() {
+
+    $labels = array(
+        'name'          => 'Consultas',
+        'singular_name' => 'Consulta',
+        'menu_name'     => 'Consultas',
+        'all_items'     => 'Todas las consultas',
+        'view_item'     => 'Ver consulta',
+        'search_items'  => 'Buscar consultas',
+        'not_found'     => 'No se encontraron consultas',
+    );
+
+    $args = array(
+        'labels'       => $labels,
+        'public'       => false,
+        'show_ui'      => true,
+        'show_in_menu' => true,
+        'menu_icon'    => 'dashicons-email-alt',
+        'supports'     => array('title'),
+    );
+
+    register_post_type(
+        'travel_inquiry',
+        $args
+    );
+}
+
+add_action(
+    'init',
+    'andes_travel_core_register_inquiry_post_type'
+);
+
+/**
+ * Agrega el Meta Box con los detalles de una consulta.
+ */
+function andes_travel_core_add_inquiry_meta_box() {
+
+    add_meta_box(
+        'andes-travel-inquiry-details',
+        'Detalles de la consulta',
+        'andes_travel_core_render_inquiry_meta_box',
+        'travel_inquiry',
+        'normal',
+        'high'
+    );
+}
+
+add_action(
+    'add_meta_boxes',
+    'andes_travel_core_add_inquiry_meta_box'
+);
+
+/**
+ * Muestra los detalles de una consulta.
+ *
+ * @param WP_Post $post Consulta actual.
+ */
+function andes_travel_core_render_inquiry_meta_box($post) {
+
+    $name = get_post_meta(
+        $post->ID,
+        '_andes_travel_inquiry_name',
+        true
+    );
+
+    $email = get_post_meta(
+        $post->ID,
+        '_andes_travel_inquiry_email',
+        true
+    );
+
+    $phone = get_post_meta(
+        $post->ID,
+        '_andes_travel_inquiry_phone',
+        true
+    );
+
+    $tour_id = absint(
+        get_post_meta(
+            $post->ID,
+            '_andes_travel_inquiry_tour_id',
+            true
+        )
+    );
+
+    $tour_name = get_post_meta(
+        $post->ID,
+        '_andes_travel_inquiry_tour_name',
+        true
+    );
+
+    $message = get_post_meta(
+        $post->ID,
+        '_andes_travel_inquiry_message',
+        true
+    );
+    ?>
+
+    <table class="widefat striped">
+
+        <tbody>
+
+            <tr>
+                <th scope="row">Nombre</th>
+                <td>
+                    <?php echo esc_html($name); ?>
+                </td>
+            </tr>
+
+            <tr>
+                <th scope="row">Correo electrónico</th>
+                <td>
+                    <a href="mailto:<?php echo esc_attr($email); ?>">
+                        <?php echo esc_html($email); ?>
+                    </a>
+                </td>
+            </tr>
+
+            <tr>
+                <th scope="row">Teléfono</th>
+                <td>
+                    <?php
+                    echo $phone
+                        ? esc_html($phone)
+                        : 'No proporcionado';
+                    ?>
+                </td>
+            </tr>
+
+            <tr>
+                <th scope="row">Tour de interés</th>
+                <td>
+
+                    <?php if ($tour_id > 0 && $tour_name) : ?>
+
+                        <?php
+                        $tour_edit_url = get_edit_post_link(
+                            $tour_id
+                        );
+                        ?>
+
+                        <?php if ($tour_edit_url) : ?>
+
+                            <a
+                                href="<?php echo esc_url($tour_edit_url); ?>"
+                            >
+                                <?php echo esc_html($tour_name); ?>
+                            </a>
+
+                        <?php else : ?>
+
+                            <?php echo esc_html($tour_name); ?>
+
+                        <?php endif; ?>
+
+                    <?php else : ?>
+
+                        No seleccionado
+
+                    <?php endif; ?>
+
+                </td>
+            </tr>
+
+            <tr>
+                <th scope="row">Mensaje</th>
+                <td>
+                    <?php echo nl2br(esc_html($message)); ?>
+                </td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+    <?php
+}
+
+    /**
          * Registra el meta box con información adicional del tour.
          */
 function andes_travel_core_add_tour_meta_box() {
@@ -351,3 +532,185 @@ function andes_travel_core_save_tour_details($post_id) {
             'save_post_tour',
             'andes_travel_core_save_tour_details'
         );
+
+    /**
+ * Redirige al formulario de contacto con un estado.
+ *
+ * @param string $status Estado del formulario.
+ */
+function andes_travel_core_redirect_contact_form($status) {
+
+    $allowed_statuses = array(
+        'success',
+        'invalid',
+        'error',
+    );
+
+    if (!in_array($status, $allowed_statuses, true)) {
+        $status = 'error';
+    }
+
+    $redirect_url = add_query_arg(
+        'contact_status',
+        $status,
+        home_url('/contacto/')
+    );
+
+    wp_safe_redirect($redirect_url);
+    exit;
+}
+        
+    /**
+ * Procesa el formulario de contacto.
+ */
+function andes_travel_core_process_contact_form() {
+
+    // 1. Comprobar si se envió nuestro formulario.
+    if (!isset($_POST['andes_travel_contact_submit'])) {
+        return;
+    }
+
+    // 2. Comprobar que el nonce existe.
+    if (!isset($_POST['andes_travel_contact_nonce'])) {
+    andes_travel_core_redirect_contact_form('invalid');
+    }
+
+    // 3. Verificar el nonce.
+    $nonce = sanitize_text_field(
+        wp_unslash($_POST['andes_travel_contact_nonce'])
+    );
+
+    if (
+    !wp_verify_nonce(
+        $nonce,
+        'andes_travel_contact_form'
+    )
+    ) {
+        andes_travel_core_redirect_contact_form('invalid');
+    }
+
+    // 4. Recoger y sanitizar los datos.
+    $name = isset($_POST['andes_travel_name'])
+        ? sanitize_text_field(
+            wp_unslash($_POST['andes_travel_name'])
+        )
+        : '';
+
+    $email = isset($_POST['andes_travel_email'])
+        ? sanitize_email(
+            wp_unslash($_POST['andes_travel_email'])
+        )
+        : '';
+
+    $phone = isset($_POST['andes_travel_phone'])
+        ? sanitize_text_field(
+            wp_unslash($_POST['andes_travel_phone'])
+        )
+        : '';
+
+    $tour_id = isset($_POST['andes_travel_tour'])
+        ? absint($_POST['andes_travel_tour'])
+        : 0;
+
+    $message = isset($_POST['andes_travel_message'])
+        ? sanitize_textarea_field(
+            wp_unslash($_POST['andes_travel_message'])
+        )
+        : '';
+
+    // 5. Validar los campos obligatorios.
+    if (
+    empty($name)
+    || empty($email)
+    || empty($message)
+    || !is_email($email)
+    ) {
+        andes_travel_core_redirect_contact_form('invalid');
+    }
+
+    // 6. Validar el Tour seleccionado, si existe.
+    if ($tour_id > 0) {
+
+    $tour = get_post($tour_id);
+
+    if (
+    empty($name)
+    || empty($email)
+    || empty($message)
+    || !is_email($email)
+    ) {
+        andes_travel_core_redirect_contact_form('invalid');
+    }
+}
+
+    // 7. Obtener el nombre del Tour seleccionado.
+$tour_name = '';
+
+if ($tour_id > 0) {
+    $tour_name = get_the_title($tour_id);
+}
+
+// 8. Crear la consulta en WordPress.
+$inquiry_id = wp_insert_post(
+    array(
+        'post_type'   => 'travel_inquiry',
+        'post_status' => 'publish',
+        'post_title'  => sprintf(
+            'Consulta de %s',
+            $name
+        ),
+    ),
+    true
+);
+
+// 9. Comprobar que la consulta se creó correctamente.
+if (is_wp_error($inquiry_id)) {
+    andes_travel_core_redirect_contact_form('error');
+}
+
+// 10. Guardar los datos de la consulta.
+update_post_meta(
+    $inquiry_id,
+    '_andes_travel_inquiry_name',
+    $name
+);
+
+update_post_meta(
+    $inquiry_id,
+    '_andes_travel_inquiry_email',
+    $email
+);
+
+update_post_meta(
+    $inquiry_id,
+    '_andes_travel_inquiry_phone',
+    $phone
+);
+
+update_post_meta(
+    $inquiry_id,
+    '_andes_travel_inquiry_tour_id',
+    $tour_id
+);
+
+update_post_meta(
+    $inquiry_id,
+    '_andes_travel_inquiry_tour_name',
+    $tour_name
+);
+
+update_post_meta(
+    $inquiry_id,
+    '_andes_travel_inquiry_message',
+    $message
+);
+
+// 11. Redirigir después de procesar correctamente la consulta.
+andes_travel_core_redirect_contact_form('success');
+}
+
+add_action(
+    'template_redirect',
+    'andes_travel_core_process_contact_form'
+);
+
