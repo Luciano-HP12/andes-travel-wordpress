@@ -32,7 +32,12 @@ $destinations = get_the_terms(
             class="tour-card__image"
             href="<?php the_permalink(); ?>"
         >
-            <?php the_post_thumbnail('large'); ?>
+            <?php the_post_thumbnail(
+                'andes-travel-card',
+                array(
+                    'loading' => 'lazy',
+                )
+            ); ?>
         </a>
 
     <?php endif; ?>

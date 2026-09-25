@@ -19,6 +19,17 @@ get_header();
             ?>
 
             <section class="hero">
+                <img
+                    class="hero__background"
+                    src="<?php echo esc_url(
+                        get_template_directory_uri()
+                        . '/assets/images/hero-home.jpg'
+                    ); ?>"
+                    alt=""
+                    width="736"
+                    height="485"
+                    fetchpriority="high"
+                >
 
                 <div class="hero__content">
 
