@@ -4,6 +4,14 @@ Andes Travel es un sitio web turístico desarrollado con WordPress mediante un t
 
 El proyecto fue desarrollado como parte de mi formación práctica en desarrollo web con WordPress, aplicando PHP, MySQL, WordPress APIs, desarrollo de temas y plugins, responsive design, seguridad básica y optimización web.
 
+## Demo
+
+El proyecto se encuentra desplegado públicamente en:
+
+https://andes-travel.gamer.free/
+
+> La demo utiliza un servicio de hosting gratuito, por lo que los tiempos de respuesta pueden variar.
+
 ## Características principales
 
 - Tema de WordPress desarrollado desde cero.
@@ -121,13 +129,16 @@ Entre las optimizaciones realizadas se encuentran:
 - Meta descriptions dinámicas.
 - Sitemap XML de WordPress.
 
-En las pruebas locales realizadas como visitante se alcanzaron resultados de referencia de:
+### Resultados de Lighthouse
 
-- Performance: 97
+Pruebas realizadas sobre la versión desplegada en producción:
+
+- Performance: 92
 - Accessibility: 100
+- Best Practices: 100
 - SEO: 100
 
-La puntuación de Best Practices en el entorno local estuvo condicionada por el uso de HTTP. Las configuraciones de HTTPS y cabeceras de seguridad corresponden al entorno de producción.
+Las métricas de rendimiento pueden variar según las condiciones de red y las limitaciones del servicio de hosting utilizado.
 
 ## Instalación local
 
@@ -162,7 +173,20 @@ La información de contenido utilizada durante el desarrollo local no forma part
 
 ## Estado del proyecto
 
-El proyecto cuenta con las funcionalidades principales implementadas y ha pasado pruebas manuales de navegación, responsive design, formularios, consultas, páginas 404 y depuración de PHP.
+El proyecto cuenta con las funcionalidades principales implementadas y se encuentra desplegado públicamente.
+
+Se realizaron pruebas manuales de:
+
+- Navegación.
+- Responsive design.
+- Formularios.
+- Persistencia de consultas.
+- Tours y destinos.
+- Blog.
+- Página 404.
+- Depuración de PHP.
+- SEO y accesibilidad.
+- Rendimiento mediante Lighthouse.
 
 ## Mejoras futuras
 
