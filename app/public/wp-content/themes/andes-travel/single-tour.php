@@ -30,27 +30,22 @@ get_header();
             );
 
             $destinations = get_the_terms(
-                    get_the_ID(),
-                    'destination'
-                );
-
-                $destination_names = array();
-
-                if (
-                    $destinations
-                    && !is_wp_error($destinations)
-                ) {
-                    $destination_names = wp_list_pluck(
-                        $destinations,
-                        'name'
-                    );
-                }
-            $is_featured = get_post_meta(
-                $post->ID,
-                '_andes_travel_featured',
-                true
+                get_the_ID(),
+                'destination'
             );
 
+            $destination_names = array();
+
+            if (
+                $destinations
+                && !is_wp_error($destinations)
+            ) {
+                $destination_names = wp_list_pluck(
+                    $destinations,
+                    'name'
+                );
+            }
+            
             $difficulty = get_post_meta(
                 get_the_ID(),
                 '_andes_travel_difficulty',

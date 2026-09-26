@@ -1498,6 +1498,95 @@ background-color: var(--color-accent);
 }
 
 /* ============================================
+   404
+   ============================================ */
+
+.error-404 {
+    display: flex;
+    align-items: center;
+    min-height: 65vh;
+    padding: 80px 20px;
+    text-align: center;
+    background: var(--color-background-soft);
+}
+
+.error-404__container {
+    width: min(680px, 100%);
+    margin: 0 auto;
+}
+
+.error-404__code {
+    margin: 0 0 12px;
+    color: var(--color-accent);
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 3px;
+}
+
+.error-404__title {
+    margin: 0;
+    color: var(--color-primary);
+    font-size: clamp(38px, 6vw, 60px);
+    line-height: 1.1;
+}
+
+.error-404__description {
+    max-width: 580px;
+    margin: 24px auto 0;
+    color: var(--color-text-light);
+    font-size: 18px;
+    line-height: 1.7;
+}
+
+.error-404__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 32px;
+}
+
+.error-404__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 12px 24px;
+    color: #ffffff;
+    background: var(--color-primary);
+    border-radius: var(--radius-small);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.error-404__button:hover {
+    background: var(--color-primary-dark);
+}
+
+.error-404__link {
+    color: var(--color-primary);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.error-404__link:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+
+    .error-404 {
+        min-height: 60vh;
+        padding: 56px 16px;
+    }
+
+    .error-404__actions {
+        flex-direction: column;
+    }
+}
+
+/* ============================================
    Media queries generales
    ============================================ */
 
