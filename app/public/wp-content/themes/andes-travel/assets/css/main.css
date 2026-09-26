@@ -1587,6 +1587,227 @@ background-color: var(--color-accent);
 }
 
 /* ============================================
+   About
+   ============================================ */
+
+.about-page {
+    background: var(--color-background);
+}
+
+.about-page__container {
+    width: min(var(--container-width), calc(100% - 40px));
+    margin: 0 auto;
+}
+
+.about-page__eyebrow {
+    margin: 0 0 12px;
+    color: var(--color-primary);
+    font-size: 14px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.about-hero {
+    padding: 96px 0;
+    background: var(--color-background-soft);
+}
+
+.about-page__title {
+    max-width: 850px;
+    margin: 0;
+    color: var(--color-primary);
+    font-size: clamp(42px, 6vw, 68px);
+    line-height: 1.05;
+    letter-spacing: -2px;
+}
+
+.about-page__intro {
+    max-width: 720px;
+    margin: 28px 0 0;
+    color: var(--color-text-light);
+    font-size: 20px;
+    line-height: 1.7;
+}
+
+/* Historia */
+
+.about-story {
+    padding: 96px 0;
+}
+
+.about-story__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(280px, 0.7fr);
+    gap: 72px;
+    align-items: center;
+}
+
+.about-story__content h2,
+.about-values__header h2,
+.about-cta h2 {
+    margin: 0;
+    color: var(--color-primary);
+    font-size: clamp(32px, 4vw, 44px);
+    line-height: 1.15;
+}
+
+.about-story__content p:not(.about-page__eyebrow) {
+    margin: 24px 0 0;
+    color: var(--color-text-light);
+    font-size: 17px;
+    line-height: 1.8;
+}
+
+.about-story__highlight {
+    padding: 40px;
+    background: var(--color-primary);
+    border-radius: var(--radius-medium);
+    box-shadow: var(--shadow-card);
+}
+
+.about-story__number {
+    display: block;
+    margin-bottom: 18px;
+    color: #ffffff;
+    font-size: 42px;
+    font-weight: 800;
+}
+
+.about-story__highlight p {
+    margin: 0;
+    color: #ffffff;
+    line-height: 1.7;
+}
+
+/* Valores */
+
+.about-values {
+    padding: 96px 0;
+    background: var(--color-background-soft);
+}
+
+.about-values__header {
+    max-width: 720px;
+    margin-bottom: 48px;
+}
+
+.about-values__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 28px;
+}
+
+.about-value {
+    padding: 32px;
+    background: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-medium);
+}
+
+.about-value h3 {
+    margin: 0 0 16px;
+    color: var(--color-primary);
+    font-size: 22px;
+}
+
+.about-value p {
+    margin: 0;
+    color: var(--color-text-light);
+    line-height: 1.7;
+}
+
+/* CTA */
+
+.about-cta {
+    padding: 80px 0;
+}
+
+.about-cta__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 48px;
+}
+
+.about-cta__content > div {
+    max-width: 700px;
+}
+
+.about-cta__content p:not(.about-page__eyebrow) {
+    margin: 20px 0 0;
+    color: var(--color-text-light);
+    line-height: 1.7;
+}
+
+.about-cta__button {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    min-height: 50px;
+    padding: 13px 26px;
+    color: #ffffff;
+    background: var(--color-primary);
+    border-radius: var(--radius-small);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.about-cta__button:hover {
+    background: var(--color-primary-dark);
+}
+
+/* Responsive */
+
+@media (max-width: 900px) {
+
+    .about-story__grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .about-values__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .about-cta__content {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .about-page__container {
+        width: min(var(--container-width), calc(100% - 32px));
+    }
+
+    .about-hero,
+    .about-story,
+    .about-values {
+        padding: 64px 0;
+    }
+
+    .about-cta {
+        padding: 64px 0;
+    }
+
+    .about-page__title {
+        letter-spacing: -1px;
+    }
+
+    .about-page__intro {
+        font-size: 18px;
+    }
+
+    .about-story__highlight,
+    .about-value {
+        padding: 26px;
+    }
+}
+
+/* ============================================
    Media queries generales
    ============================================ */
 
